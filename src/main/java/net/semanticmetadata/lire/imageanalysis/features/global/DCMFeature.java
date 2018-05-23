@@ -22,7 +22,7 @@ import org.dcm4che3.io.DicomInputStream;
  * @author Jose Alejandro Camiño Iglesias
  */
 public class DCMFeature implements GlobalFeature, LireFeature {
-  private static List<String> names = new LinkedList<String>();
+  private static List<String> names = new LinkedList<>();
   Map<String,String> feature = new HashMap<>();
 
   public static synchronized void addFileName(String string){
@@ -87,21 +87,12 @@ public class DCMFeature implements GlobalFeature, LireFeature {
   @Override
   public void setByteArrayRepresentation(byte[] featureData) {
     ByteArrayInputStream bis = new ByteArrayInputStream(featureData);
-    ObjectInput in = null;
-    try {
-      in = new ObjectInputStream(bis);
-      feature = (Map<String,String>)in.readObject();
+    try (ObjectInput in = new ObjectInputStream(bis)) {
+      feature = (Map<String, String>) in.readObject();
     } catch (IOException | ClassNotFoundException e) {
       e.printStackTrace();
-    } finally {
-      try {
-        if (in != null) {
-          in.close();
-        }
-      } catch (IOException ex) {
-        // ignore close exception
-      }
     }
+    // ignore close exception
   }
 
   @Override

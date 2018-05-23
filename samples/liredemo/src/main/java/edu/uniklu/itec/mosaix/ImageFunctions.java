@@ -36,6 +36,7 @@ import edu.uniklu.itec.mosaix.engine.ProportionWeightingStrategy;
 import liredemo.ProgressMonitor;
 import net.semanticmetadata.lire.imageanalysis.features.global.AutoColorCorrelogram;
 import net.semanticmetadata.lire.imageanalysis.features.global.CEDD;
+import net.semanticmetadata.lire.imageanalysis.features.global.DCMFeature;
 import net.semanticmetadata.lire.searchers.GenericFastImageSearcher;
 import net.semanticmetadata.lire.searchers.ImageSearchHits;
 import net.semanticmetadata.lire.searchers.ImageSearcher;
@@ -155,16 +156,7 @@ public class ImageFunctions {
                 reader = DirectoryReader.open(FSDirectory.open(Paths.get(path)));
             }
             if (searcher == null) {
-                if (colorHist > 0f) {
-//              et  System.out.println("Using AutoColorCorrelogram Searcher ...");
-//                    searcher = ImageSearcherFactory.createDefaultCorrelogramImageSearcher(50);
-                    searcher = new GenericFastImageSearcher(50, CEDD.class);
-                } else if (texture > 0f) {
-                    searcher = new GenericFastImageSearcher(50, AutoColorCorrelogram.class);
-                } else if (colorDist > 0f) {
-//                System.out.println("Using Default Weighted Searcher ...");
-//                    searcher = ImageSearcherFactory.createWeightedSearcher(50, colorHist, colorDist, texture); //.createSimpleSearcher(10);
-                }
+                searcher = new GenericFastImageSearcher(50, DCMFeature.class);
             }
             hits = searcher.search(bi, reader);
             // reader.close();

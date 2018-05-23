@@ -1278,7 +1278,7 @@ public class LireDemoFrame extends javax.swing.JFrame {
 
     private void mosaicTileCountSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_mosaicTileCountSliderStateChanged
         labelMosaicSliderValue.setText(mosaicTileCountSlider.getValue() + "");
-    }//GEN-LAST:event_mosaicTileCountSliderStateChanged
+    }//GEN-LAST:event_mosaicTileCountSliderStateChangedsea
 
     private void checkboxMosaicAdvanceOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxMosaicAdvanceOptionsActionPerformed
         CardLayout cl = (CardLayout) mosaicAdvanceOptionsPanel.getLayout();
@@ -1322,7 +1322,7 @@ public class LireDemoFrame extends javax.swing.JFrame {
         JFileChooser jfc = new JFileChooser(".");
         jfc.setDialogTitle("Select image to create mosaic ...");
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                "JPG, PNG & GIF Images", "jpg", "gif", "png");
+                "DICOM Images", "dcm");
         jfc.setFileFilter(filter);
         if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             try {
@@ -1672,7 +1672,7 @@ public class LireDemoFrame extends javax.swing.JFrame {
         JFileChooser jfc = new JFileChooser(".");
         jfc.setDialogTitle("Select image to search for ...");
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                "JPG, PNG & GIF Images", "jpg", "gif", "png");
+                "DICOM Images", "dcm");
         jfc.setFileFilter(filter);
         if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             try {
@@ -1943,6 +1943,7 @@ public class LireDemoFrame extends javax.swing.JFrame {
                     int numDocs = reader.numDocs();
                     System.out.println("numDocs = " + numDocs);
                     ImageSearcher searcher = getSearcher();
+                    DCMFeature.addFileName(path);
                     ImageSearchHits hits = searcher.search(ImageIO.read(new FileInputStream(path)), reader);
                     tableModel.setHits(hits, progressSearch, reader);
                     reader.close();
@@ -1972,42 +1973,7 @@ public class LireDemoFrame extends javax.swing.JFrame {
         } catch (Exception e) {
             // nothing to do ...
         }
-        ImageSearcher searcher = new GenericFastImageSearcher(numResults, ColorLayout.class);
-        if (selectboxDocumentBuilder.getSelectedIndex() == 1) {
-            searcher = new GenericFastImageSearcher(numResults, ScalableColor.class);
-        } else if (selectboxDocumentBuilder.getSelectedIndex() == 2) {
-            searcher = new GenericFastImageSearcher(numResults, EdgeHistogram.class);
-        } else if (selectboxDocumentBuilder.getSelectedIndex() == 3) {
-            searcher = new GenericFastImageSearcher(numResults, AutoColorCorrelogram.class);
-        } else if (selectboxDocumentBuilder.getSelectedIndex() == 4) { // CEDD
-            searcher = new GenericFastImageSearcher(numResults, CEDD.class);
-        } else if (selectboxDocumentBuilder.getSelectedIndex() == 5) { // FCTH
-            searcher = new GenericFastImageSearcher(numResults, FCTH.class);
-        } else if (selectboxDocumentBuilder.getSelectedIndex() == 6) { // JCD
-            searcher = new GenericFastImageSearcher(numResults, JCD.class);
-        } else if (selectboxDocumentBuilder.getSelectedIndex() == 7) { // SimpleColorHistogram
-            searcher = new GenericFastImageSearcher(numResults, SimpleColorHistogram.class);
-        } else if (selectboxDocumentBuilder.getSelectedIndex() == 8) {
-            searcher = new GenericFastImageSearcher(numResults, Tamura.class);
-        } else if (selectboxDocumentBuilder.getSelectedIndex() == 9) {
-            searcher = new GenericFastImageSearcher(numResults, Gabor.class);
-        } else if (selectboxDocumentBuilder.getSelectedIndex() == 10) {
-            searcher = new GenericFastImageSearcher(numResults, JpegCoefficientHistogram.class);
-        } else if (selectboxDocumentBuilder.getSelectedIndex() == 11) {
-//            searcher = new VisualWordsImageSearcher(numResults, DocumentBuilder.FIELD_NAME_SURF + DocumentBuilder.FIELD_NAME_BOVW);
-        } else if (selectboxDocumentBuilder.getSelectedIndex() == 12) {
-            searcher = new GenericFastImageSearcher(numResults, JointHistogram.class);
-        } else if (selectboxDocumentBuilder.getSelectedIndex() == 13) {
-            searcher = new GenericFastImageSearcher(numResults, OpponentHistogram.class);
-        } else if (selectboxDocumentBuilder.getSelectedIndex() == 14) {
-            searcher = new GenericFastImageSearcher(numResults, LuminanceLayout.class);
-        } else if (selectboxDocumentBuilder.getSelectedIndex() == 15) {
-            searcher = new GenericFastImageSearcher(numResults, PHOG.class);
-        } else if (selectboxDocumentBuilder.getSelectedIndex() == 16) {
-            searcher = new GenericFastImageSearcher(numResults, ACCID.class);
-        } else if (selectboxDocumentBuilder.getSelectedIndex() >= 17) {
-            searcher = new GenericFastImageSearcher(numResults, COMO.class);
-        }
+        ImageSearcher searcher = new GenericFastImageSearcher(numResults, DCMFeature.class);
         return searcher;
     }
 
