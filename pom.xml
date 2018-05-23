@@ -74,6 +74,7 @@
 		<commons-io.version>2.5</commons-io.version>
 		<jopensurf.version>1.0.0</jopensurf.version>
 		<opencv.version>2.4.9-7</opencv.version>
+		<dcm4che.version>5.13.2</dcm4che.version>
 
 		<junit.version>4.12</junit.version>
 
@@ -134,6 +135,23 @@
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.dcm4che</groupId>
+			<artifactId>dcm4che-core</artifactId>
+			<version>${dcm4che.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.dcm4che.tool</groupId>
+			<artifactId>dcm4che-tool-common</artifactId>
+			<version>${dcm4che.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.dcm4che</groupId>
+			<artifactId>dcm4che-imageio-rle</artifactId>
+			<version>${dcm4che.version}</version>
+			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
 

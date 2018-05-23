@@ -116,10 +116,10 @@ public class MetadataBuilder implements DocumentBuilder {
             doc.add(new StringField(DocumentBuilder.FIELD_NAME_IDENTIFIER, identifier, Field.Store.YES));
         }
 
-        Field[] fields = getDescriptorFields(identifier);
+        /*Field[] fields = getDescriptorFields(identifier);
         for (Field field : fields) {
             doc.add(field);
-        }
+        }*/
 
         return doc;
     }

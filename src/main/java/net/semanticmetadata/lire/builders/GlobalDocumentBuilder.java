@@ -195,7 +195,6 @@ public class GlobalDocumentBuilder implements DocumentBuilder {
         if (Math.max(image.getHeight(), image.getWidth()) > DocumentBuilder.MAX_IMAGE_DIMENSION) {
             image = ImageUtils.scaleImage(image, DocumentBuilder.MAX_IMAGE_DIMENSION);
         }
-
         globalFeature.extract(image);
         return globalFeature;
     }
@@ -263,7 +262,6 @@ public class GlobalDocumentBuilder implements DocumentBuilder {
         if (extractorItems.size() > 0) {
             for (Map.Entry<ExtractorItem, String[]> extractorItemEntry : extractorItems.entrySet()) {
                 fields = getGlobalDescriptorFields(image, extractorItemEntry.getKey());
-
                 Collections.addAll(resultList, fields);
             }
         }
@@ -279,7 +277,6 @@ public class GlobalDocumentBuilder implements DocumentBuilder {
     @Override
     public Document createDocument(BufferedImage image, String identifier) {
         Document doc = new Document();
-
         if (identifier != null) {
             doc.add(new StringField(DocumentBuilder.FIELD_NAME_IDENTIFIER, identifier, Field.Store.YES));
         }

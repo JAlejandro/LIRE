@@ -88,7 +88,6 @@ import static org.apache.lucene.store.FSDirectory.open;
  * @author Mathias Lux, mathias@juggle.at
  */
 public class LireDemoFrame extends javax.swing.JFrame {
-
     private Color highlightHoverColor = Color.decode("#dddddd");
     private Color highlightSelectColor = Color.decode("#eeeeee");
     private SearchResultsTableModel tableModel = new SearchResultsTableModel();
@@ -98,9 +97,11 @@ public class LireDemoFrame extends javax.swing.JFrame {
      * Creates new form LireDemoFrame
      */
     public LireDemoFrame() {
+        System.out.println(ImageIO.getImageReadersByFormatName("DICOM").
+            next().getClass().getSimpleName());
         try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            // UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+            //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (Exception e) {
         }
         initComponents();
@@ -112,7 +113,7 @@ public class LireDemoFrame extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(LireDemoFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        selectboxDocumentBuilder.setSelectedIndex(5);
+        selectboxDocumentBuilder.setSelectedIndex(0);
         buttonSwitchIndex.setBackground(highlightSelectColor);
         DropTarget t = new DropTarget(searchPanel, new DropTargetListener() {
             public void dragEnter(DropTargetDragEvent dtde) {
@@ -882,7 +883,7 @@ public class LireDemoFrame extends javax.swing.JFrame {
 
         jLabel1.setText("Type of IndexSearcher:");
 
-        selectboxDocumentBuilder.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Color Layout (MPEG-7)", "Scalable Color (MPEG-7)", "Edge Histogram (MPEG-7)", "Auto Color Correlogram", "CEDD", "FCTH", "JCD", "RGB Color Histogram", "Tamura Texture Features", "GaborTexture Features", "JPEG Coefficients Histogram", "SURF BoVW", "Joint Histogram", "Opponent Histogram", "Luminance Layout", "PHOG", "ACCID", "COMO"}));
+        selectboxDocumentBuilder.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"DCM properties"}));
         selectboxDocumentBuilder.setToolTipText(bundle.getString("options.tooltip.documentbuilderselection")); // NOI18N
         selectboxDocumentBuilder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

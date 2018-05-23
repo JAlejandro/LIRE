@@ -2,6 +2,7 @@ apply plugin: 'java'
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
@@ -15,9 +16,13 @@ dependencies {
     // https://mvnrepository.com/artifact/com.drewnoakes/metadata-extractor
     compile group: 'com.drewnoakes', name: 'metadata-extractor', version: '2.9.1'
     // compile group: 'com.drewnoakes', name: 'metadata-extractor', version: '2.3.1'
-
+    // https://mvnrepository.com/artifact/org.dcm4che/dcm4che-core
+    compile group: 'org.dcm4che', name: 'dcm4che-core', version: '5.13.2'
+    // https://mvnrepository.com/artifact/org.dcm4che.tool/dcm4che-tool-common
+    compile group: 'org.dcm4che.tool', name: 'dcm4che-tool-common', version: '5.13.2'
     // https://mvnrepository.com/artifact/org.bytedeco.javacpp-presets/opencv
     // compile group: 'org.bytedeco.javacpp-presets', name: 'opencv', version: '2.4.11-0.11'
+    runtime group: 'org.dcm4che', name: 'dcm4che-imageio', version: '5.13.2'
     compile fileTree(dir: 'lib', include: '*.jar')
     // runtime fileTree(dir: 'lib', include: '*.jar')
 }

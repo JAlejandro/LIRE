@@ -75,17 +75,17 @@ import java.util.zip.ZipOutputStream;
  * @author Nektarios Anagnostopoulos, nek.anag@gmail.com
  */
 public class FileUtils {
-    enum FileTypes {JPG, GIF, TIF, PNG, PDF, UNKNOWN}
+    enum FileTypes {JPG, GIF, TIF, PNG, PDF, UNKNOWN, DCM}
 
     ;
 
     /**
      * basic image file filter.
      */
-    public static final SuffixFileFilter fileFilter = new SuffixFileFilter(new String[]{".jpg", ".jpeg", ".png", ".gif"}, IOCase.INSENSITIVE);
+    public static final SuffixFileFilter fileFilter = new SuffixFileFilter(new String[]{".jpg", ".jpeg", ".png", ".gif", ".dcm"}, IOCase.INSENSITIVE);
 
     /**
-     * Returns all images from a directory in an array. Image files are identified by their suffix being from {.png, .jpg, .jpeg, .gif} in case insensitive manner.
+     * Returns all images from a directory in an array. Image files are identified by their suffix being from {.png, .jpg, .jpeg, .gif, .dcm} in case insensitive manner.
      *
      * @param directory                 the directory to start with
      * @param descendIntoSubDirectories should we include sub directories?
@@ -380,7 +380,7 @@ public class FileUtils {
                 // GIF: 47 49 46 38 ...
                 return FileTypes.GIF;
             } else {
-                return FileTypes.UNKNOWN;
+                return FileTypes.DCM;
             }
         } finally {
             if (in != null) {
@@ -410,7 +410,7 @@ public class FileUtils {
 
     public static ArrayList<String> readFileLines(File directory, boolean descendIntoSubDirectories) throws IOException {
         ArrayList<String> resultList = new ArrayList<String>(256);
-        String[] extensions = new String[]{"jpg", "JPG", "jpeg", "png", "gif", "tif", "tiff"};
+        String[] extensions = new String[]{"jpg", "JPG", "jpeg", "png", "gif", "tif", "tiff", "dcm"};
 
         System.out.print("Getting all images in " + directory.getCanonicalPath() + " " + ((descendIntoSubDirectories) ? "including" : "not including") + " those in subdirectories");
         java.util.List<File> files = (LinkedList<File>) org.apache.commons.io.FileUtils.listFiles(directory, extensions, descendIntoSubDirectories);
@@ -468,7 +468,7 @@ public class FileUtils {
     public static int createImagefileList(File imageDirectory, File outputFile, boolean append) throws IOException {
         if (!imageDirectory.isDirectory()) return -1;
         int result = 0;
-        Collection<File> files = org.apache.commons.io.FileUtils.listFiles(imageDirectory, new String[]{"jpg", "png", "PNG", "JPG"}, true);
+        Collection<File> files = org.apache.commons.io.FileUtils.listFiles(imageDirectory, new String[]{"jpg", "png", "PNG", "JPG", "dcm", "DCM"}, true);
         BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile, append));
         for (File f : files) {
             bw.write(f.getAbsolutePath() + "\n");

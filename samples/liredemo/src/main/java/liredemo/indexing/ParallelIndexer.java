@@ -163,7 +163,7 @@ public class ParallelIndexer implements Runnable {
             BufferedImage image = null;
             if (path.toLowerCase().endsWith(".jpg")) {
                 FileInputStream jpegFile = new FileInputStream(path);
-                try {
+                /*try {
                     Metadata metadata = ImageMetadataReader.readMetadata(jpegFile);
                     ExifThumbnailDirectory tDir = metadata.getFirstDirectoryOfType(ExifThumbnailDirectory.class);
 //                    byte[] thumb = ((ExifDirectory) metadata.getDirectory(ExifDirectory.class)).getThumbnailData();
@@ -177,7 +177,7 @@ public class ParallelIndexer implements Runnable {
                     System.err.println("Could not extract EXIF data for " + path);
                     System.err.println("\t" + e.getMessage());
                 }
-                jpegFile.close();    // patch by Simon Micollier
+                jpegFile.close();    // patch by Simon Micollier*/
             }
             // Fallback & PNGs:
             if (image == null)

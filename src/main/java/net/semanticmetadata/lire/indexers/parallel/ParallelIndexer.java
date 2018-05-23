@@ -45,11 +45,11 @@ import net.semanticmetadata.lire.imageanalysis.features.GlobalFeature;
 import net.semanticmetadata.lire.imageanalysis.features.LocalFeature;
 import net.semanticmetadata.lire.imageanalysis.features.LocalFeatureExtractor;
 import net.semanticmetadata.lire.imageanalysis.features.global.CEDD;
+import net.semanticmetadata.lire.imageanalysis.features.global.DCMFeature;
 import net.semanticmetadata.lire.imageanalysis.features.global.FCTH;
 import net.semanticmetadata.lire.imageanalysis.features.global.JCD;
 import net.semanticmetadata.lire.imageanalysis.features.local.simple.SimpleExtractor;
 import net.semanticmetadata.lire.utils.FileUtils;
-import net.semanticmetadata.lire.utils.ImageUtils;
 import net.semanticmetadata.lire.utils.LuceneUtils;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
@@ -62,8 +62,6 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.*;
@@ -1250,6 +1248,7 @@ public class ParallelIndexer implements Runnable {
                     else overallCount++;
                     if (!locallyEnded) {    //&& tmp != null
                         image = ImageIO.read(new ByteArrayInputStream(tmp.getBuffer()));
+                        DCMFeature.addFileName(tmp.getFileName());
 //                        image = ImageUtils.createWorkingCopy(ImageIO.read(new ByteArrayInputStream(tmp.getBuffer())));
                         if(imagePreprocessor != null){
                             image = imagePreprocessor.process(image);
